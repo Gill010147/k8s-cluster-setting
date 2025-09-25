@@ -29,6 +29,16 @@
 | myserver02 | Worker Node | 10.0.2.20 | 2 CPU, 2GB RAM |
 | myserver03 | Worker Node | 10.0.2.25 | 2 CPU, 2GB RAM |
 
+<details>
+  <summary>사진</summary>
+  <img width="767" height="518" alt="image" src="https://github.com/user-attachments/assets/d8e8256b-a9c6-460a-9465-cfe17279c997" />
+  <img width="792" height="470" alt="image" src="https://github.com/user-attachments/assets/28c91487-b1ae-4aef-aa40-0a44f3d93ac9" />
+
+
+  - ova파일 가져오기 또는 복제로 세 개의 VM 설치
+</details>
+
+
 ### 기술 스택
 
 - **OS**: Ubuntu 24.04.2 LTS
@@ -37,8 +47,9 @@
 - **CNI**: Calico
 - **네트워크**: 192.168.0.0/16 (Pod Network CIDR)
 
-<!-- 클러스터 아키텍처 다이어그램 -->
-![클러스터 아키텍처](images/cluster-architecture.png)
+### 클러스터 아키텍처 다이어그램
+<img width="947" height="431" alt="image" src="https://github.com/user-attachments/assets/729a5039-8790-48d2-903e-ca7647969ee0" />
+
 
 ## 🚀 사전 준비사항
 
@@ -96,8 +107,16 @@ sudo netplan apply
 ip a  # IP 설정 확인
 ```
 
-<!-- 네트워크 설정 확인 스크린샷 -->
-![네트워크 설정](images/network-config.png)
+
+<details> 
+  <summary> 네트워크 설정 확인 스크린샷 </summary>
+  <img width="1104" height="302" alt="image" src="https://github.com/user-attachments/assets/a1c77981-6503-40a2-b272-93e9b413f6cb" />
+
+  <img width="1015" height="255" alt="image" src="https://github.com/user-attachments/assets/ff7e4b84-94bd-483a-803d-42446d71dda6" />
+  <img width="1017" height="260" alt="image" src="https://github.com/user-attachments/assets/a5ce7b24-f864-4d0e-b586-93ab93a28885" />
+
+</details>
+
 
 #### 3. SSH 키 기반 인증 설정
 
@@ -150,8 +169,9 @@ EOF
 sudo sysctl --system
 ```
 
-<!-- 커널 모듈 로드 확인 스크린샷 -->
-![커널 모듈](images/kernel-modules.png)
+<details> <summary>커널 모듈 로드 확인 스크린샷</summary> 
+  <img width="550" height="720" alt="image" src="https://github.com/user-attachments/assets/7b81d010-040b-4d8d-8c3c-fd0ced924c4e" />
+</details>
 
 ### 컨테이너 런타임 설치
 
@@ -203,7 +223,6 @@ sudo apt-get install -y --allow-unauthenticated kubelet kubeadm kubectl
 ```
 
 <!-- Kubernetes 구성 요소 설치 확인 스크린샷 -->
-![K8s 설치](images/k8s-installation.png)
 
 ## 🎯 마스터 노드 설정
 
@@ -245,8 +264,8 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 watch kubectl get pods -n kube-system
 ```
 
-<!-- Calico 파드 Running 상태 스크린샷 -->
-![Calico CNI](images/calico-pods.png)
+<img width="815" height="331" alt="image" src="https://github.com/user-attachments/assets/4e0d0428-59be-42d5-ba8b-148abe56dda5" />
+
 
 ### 워커 노드 조인 토큰 확인
 
@@ -257,6 +276,8 @@ sudo kubeadm token list
 # 조인 명령어 전체 생성 (필요시)
 kubeadm token create --print-join-command
 ```
+<img width="1635" height="312" alt="image" src="https://github.com/user-attachments/assets/67826bc1-59db-4556-b43e-0a5b762aea72" />
+
 
 ## 🔧 워커 노드 설정
 
@@ -292,7 +313,8 @@ kubectl get nodes -o wide
 ```
 
 <!-- 클러스터 노드 Ready 상태 스크린샷 -->
-![클러스터 상태](images/cluster-ready.png)
+<img width="1447" height="323" alt="image" src="https://github.com/user-attachments/assets/2d0ef923-859f-45b8-b273-6d9a589dc30f" />
+
 
 ### 시스템 파드 상태 확인
 
@@ -300,6 +322,9 @@ kubectl get nodes -o wide
 # kube-system 네임스페이스의 모든 파드 상태 확인
 kubectl get pods -n kube-system
 ```
+
+<img width="904" height="450" alt="image" src="https://github.com/user-attachments/assets/4fa20073-a66c-4950-b314-0cce8b7235fd" />
+
 
 ### 샘플 애플리케이션 배포
 
@@ -322,8 +347,8 @@ kubectl get svc
 kubectl get pods -o wide
 ```
 
-<!-- 샘플 애플리케이션 배포 결과 스크린샷 -->
-![샘플 앱](images/sample-app.png)
+<img width="1107" height="570" alt="image" src="https://github.com/user-attachments/assets/9724af69-cb17-4c98-be62-37eeb76f2211" />
+
 
 ## 🌐 네트워크 설정 및 서비스 타입
 
@@ -354,8 +379,7 @@ kubectl expose deployment nginx3 --type=ClusterIP --port=8083 --target-port=80
 kubectl get svc
 ```
 
-<!-- 다양한 서비스 타입 구성 결과 스크린샷 -->
-![서비스 타입](images/service-types.png)
+
 
 ## 🔍 트러블슈팅 가이드
 
@@ -518,7 +542,7 @@ kubectl get events -n kube-system
 
 ## 🎉 결론
 
-이 가이드를 통해 Ubuntu 24.04 LTS 환경에서 완전히 기능하는 Kubernetes 클러스터를 구축했습니다. 실제 운영 환경에서는 보안, 고가용성, 모니터링 등의 추가 고려사항을 반영하여 더욱 안정적인 클러스터 운영이 가능합니다. 지속적인 학습과 실습을 통해 Kubernetes 전문성을 더욱 발전시켜 나가시기 바랍니다.
+이 가이드를 통해 Ubuntu 24.04 LTS 환경에서 기능하는 Kubernetes 클러스터를 구축했습니다. 실제 운영 환경에서는 보안, 고가용성, 모니터링 등의 추가 고려사항을 반영하여 더욱 안정적인 클러스터 운영이 가능할 것으로 예상됩니다. 전체적인 k8s 구성과 아키텍처 흐름을 구현해 보면서 이해할 수 있었습니다.
 
 ---
 
