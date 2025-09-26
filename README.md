@@ -553,6 +553,4 @@ kubectl get events -n kube-system
 - [Ubuntu 서버 관리 가이드](https://ubuntu.com/server/docs)
 - [VMware 가상화 베스트 프랙티스](https://docs.vmware.com/)
 
-
-<!-- 최종 클러스터 구성 완료 스크린샷 -->
-![클러스터 완성](images/final-cluster.png)
+**다음 Repository**: [k8s-monitoring-guide](https://github.com/Gill010147/k8s-monitoring-guide)
